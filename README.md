@@ -1,2 +1,0 @@
-# BirdieTest
-fullstack internship test
