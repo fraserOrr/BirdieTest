@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head onload="test()">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -20,12 +20,69 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+
+  <script type="text/javascript" >
+
+    function divtest(){
+
+      var parent = document.getElementById("root");
+      parent.innerHTML = "helllooo";
+    }
+
+    function test(){
+      alert("This Is running");
+      var mysql = require('mysql');
+
+
+      var connect = mysql.createConnection({
+      // properties 
+        host: 'birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com',
+        port: '3306',
+        user: 'test-read',
+        password: 'xnxPp6QfZbCYkY8',
+        Database: 'birdietest' 
+  
+      });
+      var connected = false;
+      var container = document.getElementById("root");
+      container.innerHTML = "Script Failure";
+
+      // connect to the database.
+      connect.connect(function(err) { 
+      if (err) throw err; 
+        connected = true;  
+        
+      }); 
+      
+      if (connected = true){
+      
+        container.innerHTML = "Connected";
+      }else{
+        container.innerHTML = "Not Connected";
+      }
+        
+
+      connect.end();
+
+    }
+    
+  </script>
+
   </head>
-  <body>
+  <body onload="test()">
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    
+    <div id="root">
+      <button id = "bttn2" name = "bttn1" onclick="divtest()">start</button>
+    </div>
+    <div id="main">
+      <p id="testp"></p>
+      
+    </div>
+    
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
