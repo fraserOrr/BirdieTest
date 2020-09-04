@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head onload="test()">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -19,39 +19,72 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <!--<script type="text/javascript">
+      function test(){
+      alert("This Is running");
+      var mysql = require('mysql');
 
+
+      var connect = mysql.createConnection({
+      // properties 
+        host: 'birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com',
+        port: '3306',
+        user: 'test-read',
+        password: 'xnxPp6QfZbCYkY8',
+        Database: 'birdietest' 
   
-  </head>
-  <body onload="sqlconnect()">
-    <script type="text/javascript" >
+      });
+      var connected = false;
+      var container = document.getElementById("root");
+      container.innerHTML = "Script Failure";
 
-    function divtest(){
+      // connect to the database.
+      connect.connect(function(err) { 
+      if (err) throw err; 
+        connected = true;  
+        
+      }); 
+      
+      if (connected = true){
+      
+        container.innerHTML = "Connected";
+      }else{
+        container.innerHTML = "Not Connected";
+      }
+        
 
-      var parent = document.getElementById("root");
-      parent.innerHTML = "helllooo";
+      connect.end();
+
     }
+    </script>-->
+  
 
-    <?php
-
-    ?>
-
-    
-    
-  </script>
-  <script type="text/javascript" src="serverconnectscript.js"></script>
-
+  </head>
+  <body >
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     
-    <div id="root">
-      <button id = "bttn2" name = "bttn1" onclick="divtest()">start</button>
-    </div>
-    <div id="main">
-      <p id="testp"></p>
+    <?php
+        $host='birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com',
+        $port= '3306',
+        $user= 'test-read',
+        $password= 'xnxPp6QfZbCYkY8',
+        $Database= 'birdietest'  
+
       
-    </div>
+
+      $conn -> new mysqli($host,$user,$password,$Database,$port);
+         
+      if ($mysqli -> connect_errno) {
+        echo 'console.log("connection error")';
+        exit();
+      } 
+      
+
+      
+      $conn->close(); 
+    ?>
     
     
     <!--
@@ -65,4 +98,3 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-</html>
