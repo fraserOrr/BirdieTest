@@ -1,3 +1,11 @@
+var app = require('express');
+
+
+app.post('/create-readout',function(req,res){
+	return res.redirect('')
+	});
+
+
 function sqlconnect(){
 
 

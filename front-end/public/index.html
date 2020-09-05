@@ -23,22 +23,8 @@
 
   
   </head>
-  <body onload="sqlconnect()">
-    <script type="text/javascript" >
-
-    function divtest(){
-
-      var parent = document.getElementById("root");
-      parent.innerHTML = "helllooo";
-    }
-
-    <?php
-
-    ?>
-
-    
-    
-  </script>
+  <body >
+    <script type="text/javascript" ></script>
   <script type="text/javascript" src="serverconnectscript.js"></script>
 
     <noscript>
@@ -46,10 +32,14 @@
     </noscript>
     
     <div id="root">
-      <button id = "bttn2" name = "bttn1" onclick="divtest()">start</button>
+      
     </div>
     <div id="main">
-      <p id="testp"></p>
+      <form method="post" action="http://localhost:8000/create-readout">
+        
+        <input type="submit" value="Submit">
+      </form>
+      
       
     </div>
     
