@@ -36,16 +36,32 @@
     </div>
     <div id="main">
       <h2>Hello and Welcome to Birdie</h2>
-      <p1>Please select how we can help you!</p1>
-      <form method="post" action="http://localhost:8000/MoodObservation-readout">
-        <select name="DropDown">
-          
+      <p>Please select how we can help you!</p>
+      <form action='#' onsubmit='return SendPost()'>
+        <select id="optionsSelect" name="DropDown">
+          <option value="Concern-Raised">View Concerning Events</option>
           <option value="MoodObservation-readout">View Mood</option>
         </select>
         <input type="submit" value="Submit">
       </form>
       
     </div>
+    <script type="text/javascript">
+      function SendPost(){
+        //alert("Function posting");
+        var x = document.getElementById("optionsSelect").value;
+        var url = "http://localhost:8000/"+x;
+        //alert(url);
+        window.location.replace(url);
+        //Send the proper header information along with the request
+        //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        
+      }
+      
+      
+      
+    </script>
     
     
     <!--

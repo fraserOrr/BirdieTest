@@ -24,8 +24,13 @@
   
   </head>
   <body >
-    <script type="text/javascript" ></script>
-  <script type="text/javascript" src="serverconnectscript.js"></script>
+  
+  <script type="text/javascript" >
+    function redirect(){
+      window.location.replace("home.html");
+    }
+    
+  </script>
 
     <noscript>
       You need to enable JavaScript to run this app.
@@ -34,7 +39,7 @@
     <div id="root" onload>
       
     </div>
-    <div id="main">
+    <div id="main" onload="return redirect()">
       
       
       
