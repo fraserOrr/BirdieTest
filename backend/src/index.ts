@@ -42,17 +42,38 @@ app.get('/GeneralObservation-readout',function(_req,res){
           console.log("Query Success");
           stringoutput+=("<table style='width:100%' border='1'>");
           stringoutput+=("<tr><th>Observation</th><th>Date and Time</th><th>Care Recipient</th></tr>")
-          result.forEach(function(value:any){
-            var output = value.payload.split(',');
           
+          result.forEach(function(value:any){
+            
+            var x = value.payload.indexOf("note")
+            var y = value.payload.indexOf("media")
+            var notes = value.payload.substring(x,y);
+            //console.log(notes);
+            //console.log(value.payload);
+            var output = value.payload.split(',');
+            
+            
             stringoutput+=("<tr>");
-            output.forEach(function(row:any){
+            if(value.payload.includes("note") ){
+              var str = String(notes).replace(/"/g,'');
+              
+              stringoutput+=("<th>"+str+"</th>")
+              
+            }
 
-              if(row.includes("note") || row.includes("care_recipient_id")  ){
                 
+            output.forEach(function(row:any){
+              if(row.includes("notes") ){
+
+              
+              }else if(row.includes("care_recipient_id")  ){
+                var tmp = row.split(':');
+                var row = tmp[1];
                 var str = String(row).replace(/"/g,'');
               
                 stringoutput+=("<th>"+str+"</th>")
+              
+                
               }else if(row.includes("timestamp")) {
                 var str = String(row).replace(/"/g,'');
                 stringoutput+=("<th>"+str+"</th>")
@@ -191,23 +212,22 @@ app.get('/Concern-Raised',function(_req,res){
       stringoutput+=("<table style='width:100%' border='1'>");
       stringoutput+=("<tr><th>note</th><th>Severity</th><th>Date and Time</th><th>Care Recipient</th></tr>");
        // res.write("<tr><th>Mood</th><th>Additonal Notes</th><th>Date and Time</th><th>Care Recipient</th></tr>")
+
       result.forEach(function(value:any){
-       var output = value.payload.split(',');
-       stringoutput+=("<tr>");
-          //console.log(value.payload);
-       //console.log(output);
-       output.forEach(function(row:any){
-         if(row.includes("note")|| row.includes("severity") ||row.includes("care_recipient_id")){
-          var tmp = row.split(':');
-          var row = tmp[1];
-          var str = String(row).replace(/"/g,'');
-          stringoutput+=("<th>"+str+"</th>");
-         }else if( row.includes("timestamp")){
+        
+        var output = value.payload.split(',');
+        stringoutput+=("<tr>");
+          
+        output.forEach(function(row:any){
+          if(row.includes("note")|| row.includes("severity") ||row.includes("care_recipient_id")){
+            var tmp = row.split(':');
+            var row = tmp[1];
             var str = String(row).replace(/"/g,'');
             stringoutput+=("<th>"+str+"</th>");
-         }
-          
-          
+          }else if( row.includes("timestamp")){
+            var str = String(row).replace(/"/g,'');
+            stringoutput+=("<th>"+str+"</th>");
+          } 
         });
             
             
