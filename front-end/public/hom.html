@@ -8,7 +8,7 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -31,14 +31,15 @@
     </noscript>
     
     
-    <div id="main">
-      <h2>Hello and Welcome to Birdie</h2>
+    <div style="text-align:center;" id="main">
+      <h2 >Hello and Welcome to Birdie</h2>
       <p id = "output2">Please select how we can help you!</p>
       <form action='#' onsubmit="return SendPost()">
         <select id="optionsSelect" name="DropDown">
           <!--<option value="test" selected="selected">test</option>-->
-          <option value="Concern-Raised" selected="selected" >View Concerning Events</option>
+          <option value="Concern-Raised"  >View Concerning Events</option>
           <option value="MoodObservation-readout">View Mood</option>
+          <option value="GeneralObservation-readout">General Observations</option>
         </select>
         <input type="submit" value="submit">
       </form>
@@ -52,7 +53,7 @@
         var x = document.getElementById("optionsSelect").value;
         //alert(x);
         //$("#results").append("")
-        ajax2(x,function(data){$("#results").html(data);
+        ajax2(x,function(data){$("#results").html(data);console.log("html written")
         });
        
       }

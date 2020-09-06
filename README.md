@@ -1,60 +1,23 @@
 # Birdie Developer Test
 We would like to thank you for taking our developer test. We understand that often candidates will have many of these tests to complete. Therefore we think it's important to cut straight to the important stuff. With that in mind, we've gone ahead and created a boilerplate that mostly represents the kind of technical stack we work with. This saves you from having to create needless boilerplate code that does little to demonstrate your potential as a developer.
 
-## Context
+##Testie Notes
 
-At Birdie, our app allows care givers to record observations of older adults receiving care, we name them **care recipients**.
+Notes From Applicate Regarding Application 
 
-These could be anything from the recording of their mood (happy, sad, bored, confused) to what they drank today (1 pint of water).
 
-Each of these observations are recorded as events in our database. Here's an example of a mood observation recorded
-in this event format:
-
-``` json
-{  
-   "id":"decaa026-2ce5-49cb-aff9-92326b85a98c",
-   "event_type":"mood_observation",
-   "visit_id":"39b94aab-cc35-4874-807f-c23472aec663",
-   "timestamp":"2019-04-23T10:53:13+01:00",
-   "caregiver_id":"4786d616-259e-4d52-80f7-8cf7dc6d881a",
-   "care_recipient_id":"03f3306d-a4a3-4179-ab88-81af66df8b7c",
-   "mood":"okay",
-},
-```
-
-Here's a quick explanation of the base properties:
-
-- `id`: Uniquely identifies the observation.
-- `event_type`: Title we use to categorise our events.
-- `visit_id`: Observations are traditionally observed during a visit between the caregiver (carer) and care recipient. This ID identifies that visit.
-- `caregiver_id`: Identifies who the caregiver (carer) was that made this observation.
-- `care_recipient_id`: Identifies the care recipient this observation is for.
-
-On top of that, there can be **additional properties** based on the `event_type`:
-
-- `mood` describes the mood of the care recipient as reported by the caregiver
-
-The database (we should have sent you credentials) contains some of these observation events, within the `events` table.
-
-## Challenge
-
-*Display the information to a family member*
-
-#### Your challenge is to clone this repository and create a small web application to visualize these observations, so that looking at it is valuable to a family member of this care recipient.
-
-This could mean presenting it in the following forms:
-
- - A table
- - A graph
- - A timeline
-
- Or any other way/combination of those. We are test driven here at Birdie so please make sure you write tests to validate your work.
-
-## Deliverables
-
-- Put your code on Github and send us the link to the repository
-- Deploying the code to a platform like [Heroku](https://heroku.com) is a great plus.
-- **If you are unable to deploy your code please send a recording of the application working**
+   *Assumptions:
+      1.There were only 3 unqiue patient(care recipients) ids, at this time i didnt filter the sql queries by pateint id as it would not be secure for patient records, but a users login details should restrict whos data they could access at source to prevent someone finding a patients id and downloading there data. 
+   *Notes 
+      1. I focused on queries that contained notes in the payload as i thought they contained the most infomation that a family member might want to view. So i set 3 queries for urgent events, mood observations and general observations. Ideally id have a handler for each event type but i only managed time for 3 due to time taken to learn the techincal stack that i was not used to.
+      2. All queries are sorted by care recipient Id and then by time of event.
+      3. All get requests are handled using ajax
+      4. All SQL results are formatted in the backend with the html ready content returned. 
+   *Techinal issues
+      1. I have a techincal issue when running a production build where it wont leave the index.html page to move to my data selection page
+      2. Currently when selecting a data set to view, you have to submit it twice or the html wont display the table, the get request works both times and i have a callback function. I believe the issues is related to the html freshing the page after the submit so wiping the data. -- hoping to be fixed before hand in
+      3. During setup and testing i had trouble using mysql node module in the backend, so i installed using the command npm install mysql --save 
+      this also added it to the dependencies. 
 
 ## Set up
 
@@ -79,6 +42,8 @@ Here's the technical stack this boilerplate was made with:
    a. Install the dependencies
    ```
    npm install
+    (If needed)
+   npm install mysql
    ```
    
    b. Run the HTTP server (will start on port `8000`)

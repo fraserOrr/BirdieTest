@@ -22,6 +22,53 @@ app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
 
+app.get('/GeneralObservation-readout',function(_req,res){
+  var mysql = require('mysql');
+  var config = {
+    host: 'birdie-test.cyosireearno.eu-west-2.rds.amazonaws.com',
+    Database: 'birdietest',
+    user: 'test-read',
+    password: 'xnxPp6QfZbCYkY8',
+    port: '3306'
+  };
+  
+  var connect = mysql.createConnection(config);
+  var stringoutput = "";
+  connect.connect(function(err:string){
+    if (err) throw err;
+      console.log("Connected");
+      connect.query("SELECT payload FROM birdietest.events WHERE event_type = 'general_observation' order by  care_recipient_id,timestamp ;",function(err:string,result:any){
+        if (err) throw err;
+          console.log("Query Success");
+          stringoutput+=("<table style='width:100%' border='1'>");
+          stringoutput+=("<tr><th>Observation</th><th>Date and Time</th><th>Care Recipient</th></tr>")
+          result.forEach(function(value:any){
+            var output = value.payload.split(',');
+          
+            stringoutput+=("<tr>");
+            output.forEach(function(row:any){
+
+              if(row.includes("note") || row.includes("care_recipient_id")  ){
+                
+                var str = String(row).replace(/"/g,'');
+              
+                stringoutput+=("<th>"+str+"</th>")
+              }else if(row.includes("timestamp")) {
+                var str = String(row).replace(/"/g,'');
+                stringoutput+=("<th>"+str+"</th>")
+              }
+
+
+            });
+
+            stringoutput+=("</tr>");
+          });
+        stringoutput+=("</table>");
+        return res.send(stringoutput);
+      });
+  });
+
+});
 app.get('/MoodObservation-readout',function(_req,res){
   
   
@@ -72,17 +119,15 @@ app.get('/MoodObservation-readout',function(_req,res){
               stringoutput+=("<th>"+str+"</th>")
               
             
-            }else if( row.includes("care_recipient_id") || row.includes("timestamp")  ){
+            }else if(  row.includes("timestamp")  ){
               if(noteinrow==true){
-               var tmp = row.split(':');
-               var row = tmp[1];
+               
                var str = String(row).replace(/"/g,'');
                
                stringoutput+=("<th>"+str+"</th>");
                
               }else{
-               var tmp = row.split(':');
-               var row = tmp[1];
+               
                var str = String(row).replace(/"/g,'');
                stringoutput+=("<th>"+"</th>");
                stringoutput+=("<th>"+str+"</th>");
@@ -91,8 +136,12 @@ app.get('/MoodObservation-readout',function(_req,res){
               
             
               
-            }else{
-             
+            }else if (row.includes("care_recipient_id") ){
+              var tmp = row.split(':');
+              var row = tmp[1];
+              var str = String(row).replace(/"/g,'');
+              
+              stringoutput+=("<th>"+str+"</th>")
             }
             
             
@@ -148,12 +197,15 @@ app.get('/Concern-Raised',function(_req,res){
           //console.log(value.payload);
        //console.log(output);
        output.forEach(function(row:any){
-         if(row.includes("note")|| row.includes("severity")|| row.includes("timestamp") ||row.includes("care_recipient_id")){
+         if(row.includes("note")|| row.includes("severity") ||row.includes("care_recipient_id")){
           var tmp = row.split(':');
           var row = tmp[1];
           var str = String(row).replace(/"/g,'');
           stringoutput+=("<th>"+str+"</th>");
-         }else{}
+         }else if( row.includes("timestamp")){
+            var str = String(row).replace(/"/g,'');
+            stringoutput+=("<th>"+str+"</th>");
+         }
           
           
         });
