@@ -6,19 +6,19 @@ We would like to thank you for taking our developer test. We understand that oft
 Notes From Applicate Regarding Application 
 
 
-   *Assumptions:
-      1.There were only 3 unqiue patient(care recipients) ids, at this time i didnt filter the sql queries by pateint id as it would not be secure for patient 		records, but a users login details should restrict whos data they could access at source to prevent someone finding a patients id and downloading there 		data. 
+   * Assumptions:
+      1. There were only 3 unqiue patient(care recipients) ids, at this time i didnt filter the sql queries by pateint id as it would not be secure for patient 	records, but a users login details should restrict whos data they could access at source to prevent someone finding a patients id and downloading there data. 
 
-   *Notes: 
+   * Notes: 
+
       1. I focused on queries that contained notes in the payload as i thought they contained the most infomation that a family member might want to view. So i set 	3 queries for urgent events, mood observations and general observations. Ideally id have a handler for each event type but i only managed time for 3 due to 	time taken to learn the techincal stack that i was not used to.
-
       2. All queries are sorted by care recipient Id and then by time of event.
 
       3. All get requests are handled using ajax
 
       4. All SQL results are formatted in the backend with the html ready content returned. 
 
-   *Techinal issues:
+   * Techinal issues:
       1. I have a techincal issue when running a production build where it wont leave the index.html page to move to my data selection page
       2. Currently when selecting a data set to view, you have to submit it twice or the html wont display the table, the get request works both times and i have a 	callback function. I believe the issues is related to the html freshing the page after the submit so wiping the data. -- hoping to be fixed before hand in
       3. During setup and testing i had trouble using mysql node module in the backend, so i installed using the command npm install mysql --save 
